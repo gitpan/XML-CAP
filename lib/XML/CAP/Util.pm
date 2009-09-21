@@ -9,11 +9,10 @@ package XML::CAP::Util;
 use strict;
 
 use XML::CAP;
-use vars qw( @EXPORT_OK @ISA );
 use Encode;
 use Exporter;
-@EXPORT_OK = qw( set_ns first nodelist childlist textValue iso2dt encode_xml create_element );
-@ISA = qw( Exporter );
+our @EXPORT_OK = qw( set_ns first nodelist childlist textValue iso2dt encode_xml create_element );
+our @ISA = qw( Exporter );
 
 use Exception::Class (
 	"XML::CAP::Util::Exception::UnknownVersion" => {

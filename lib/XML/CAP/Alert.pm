@@ -18,14 +18,47 @@ XML::CAP::Alert - XML Common Alerting Protocol "alert" element class
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use XML::CAP;
 
-    my $foo = XML::CAP->new();
-    ...
+    # read from parser
+    use XML::CAP::Parser;
+    my $obj = XML::CAP->new();
+    $parser->parse_file( "cap-file.xml" );
+    my $alert;
+    eval_wrapper ( sub { $alert = $parser->alert });
+
+    # create new object
+    $alert = XML::CAP::Alert->new;
+
+    # read values
+    $identifier = $alert->identifier;
+    $sender = $alert->sender;
+    $sent = $alert->sent;
+    $status = $alert->status;
+    $msgType = $alert->msgType;
+    $source = $alert->source;
+    $scope = $alert->scope;
+    $restriction = $alert->restriction;
+    $addresses = $alert->addresses;
+    $code = $alert->code;
+    $note = $alert->note;
+    $references = $alert->references;
+    $incidents = $alert->incidents;
+
+    # set values
+    $alert->identifier( $id );
+    $alert->sender( $sender );
+    $alert->sent( $sent );
+    $alert->status( $status );
+    $alert->msgType( $type );
+    $alert->source( $source );
+    $alert->scope( $scope );
+    $alert->restriction( $restr );
+    $alert->addresses( $addr );
+    $alert->code( $code_str );
+    $alert->note( $note );
+    $alert->references( $refs );
+    $alert->incidents( $incidents);
 
 =head1 FUNCTIONS
 

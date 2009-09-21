@@ -12,6 +12,10 @@ WriteMakefile(
       : ()),
     PL_FILES            => {},
     PREREQ_PM => {
+	'XML::LibXML' => 1.54,
+	'Exception::Class' => 0,
+        'Encode' => 0,
+        'Exporter' => 0,
         'Test::More' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },

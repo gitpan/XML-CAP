@@ -10,6 +10,7 @@ use XML::CAP;
 use base qw( XML::CAP );
 use XML::CAP::Alert;
 use XML::LibXML;
+use XML::LibXML::XPathContext;
 
 use Exception::Class (
 	"XML::CAP::Parser::Exception::BadParameter" => {
@@ -77,13 +78,35 @@ sub parse_string
 		\&throw_parser_error );
 }
 
-# get the alert, the root of the CAP structure
+# get the alert, the root of a normal CAP structure
 sub alert
 {
 	my $self = shift;
 
-	return XML::CAP::Alert->new(
-		Elem => $self->{doc}->getDocumentElement->cloneNode(1));
+	# check easiest case first: root node is an alert
+	my $node =  $self->{doc}->getDocumentElement;
+	if ( $node->nodeName eq "alert" ) {
+		return XML::CAP::Alert->new( Elem => $node->cloneNode(1));
+	}
+
+	# If we got here, the root node is not an alert.
+	# We need to search for CAP entries, and may need to build a tree.
+
+	# first, can we find any alert nodes at all?
+	my $xpc = XML::LibXML::XPathContext->new($node);
+	my @xp_nodes1 = $xpc->findnodes( "descendant-or-self::alert" );
+	if ( @xp_nodes1 ) {
+		$self->{nodes} = \@xp_nodes;
+	}
+
+	
+}
+
+# create CAP objects from the CAP namespace elements
+# use this if there's any doubt about the structure, i.e. CAP over Atom entries
+sub by_capns
+{
+	
 }
 
 # XPath query functions on the entire structure

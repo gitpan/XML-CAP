@@ -33,11 +33,11 @@ XML::CAP - parse or generate the XML Common Alerting Protocol (CAP)
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
@@ -152,7 +152,7 @@ sub initialize {
 	throw_abstract_method( "initialize() must be provided by subclass" );
 }
 
-=head2 $self->eval_wrapper ( $code, $throw_func, [ name => value, ...] )
+=head2 eval_wrapper ( $code, $throw_func, [ name => value, ...] )
 
 =cut
 
